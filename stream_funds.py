@@ -59,8 +59,17 @@ class Person():
 
 
     def print_services(self):
+
+        print("## Current outgoings:")
+        for serv, cost in self.outgoings.items():
+            print(f"{serv}: £{cost:.2f}")
+
+        print("\n## Monies to pay")
         for service in self.services:
-            print(f"{service.name} ({service.owner.name}): £{self.service_costs[service]:.2f}")
+            if service.name in self.outgoings.keys():
+                continue
+            else:
+                print(f"{service.name} ({service.owner.name}): £{self.service_costs[service]:.2f}")
 
     @property
     def expected_outgoings(self):
