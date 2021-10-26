@@ -98,9 +98,9 @@ for i,row in service_file.iterrows():
     services[row["Name"].lower()] = Service(row["Name"],row["Cost"],people[row["Owner"]])
 
 # Set up people
-print(row)
 for i, row in people_file.iterrows():
     name = row["Name"]
-    service_and_fractions = {service.lower():fraction for service,fraction in row[1:].items()}
+    services_and_fractions = {services[service.lower()]:fraction for service,fraction in row[1:].items()}
+    register_services(person=people[name],services_and_fractions=services_and_fractions)
     
 people_overview(people)
