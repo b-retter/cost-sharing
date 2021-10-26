@@ -61,15 +61,25 @@ class Person():
     def print_services(self):
 
         print("## Current outgoings:")
+
+        message = ""
         for serv, cost in self.outgoings.items():
-            print(f"{serv}: £{cost:.2f}")
+            message += f"{serv}: £{cost:.2f}"
+
+        if message == "":
+            message = "None"
+        print(message)
 
         print("\n## Monies to pay")
+        message = ""
         for service in self.services:
-            if service.name in self.outgoings.keys():
+            if service.name in self.outgoings.keys() or self.service_costs[service]==0:
                 continue
             else:
-                print(f"{service.name} ({service.owner.name}): £{self.service_costs[service]:.2f}")
+                message += f"{service.name} ({service.owner.name}): £{self.service_costs[service]:.2f}\n"
+        if message == "":
+            message = "None"
+        print(message)
 
     @property
     def expected_outgoings(self):
