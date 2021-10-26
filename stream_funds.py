@@ -60,12 +60,7 @@ class Person():
 
     def print_services(self):
         for service in self.services:
-            print(f"{service.name} : £{self.service_costs[service]:.2f}")
-        print(f"Total (expected) outgoings: £{self.expected_outgoings:.2f}")
-        print(f"Total (actual) outgoings: £{self.actual_outgoings:.2f}")
-
-        outgoings_diff = self.expected_outgoings-self.actual_outgoings
-        print(f"Expected - Actual: {str(np.sign(outgoings_diff))[0] if outgoings_diff < 0 else ''}£{np.abs(outgoings_diff):.2f}")
+            print(f"{service.name} ({service.owner.name}): £{self.service_costs[service]:.2f}")
 
     @property
     def expected_outgoings(self):
@@ -81,7 +76,7 @@ def register_services(person,services_and_fractions):
 
 def people_overview(people):
     for person in people.values():
-        print(person.name)
+        print("# " + person.name)
         person.print_services()
         print('\n')
 
