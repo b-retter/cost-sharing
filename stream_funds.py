@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 # Define classes
 
@@ -84,54 +85,22 @@ def people_overview(people):
         person.print_services()
         print('\n')
 
-people = ["Brendan", "Megan","Bethan","Tom","Celia","Matt"]
+# Read in CSV files
+people_file = pd.read_csv("People.csv")
+service_file = pd.read_csv("Services.csv")
+
+people = list(people_file["Name"].values)
 people = {name: Person(name) for name in people}
 
-services = {
-    "netflix": Service("netflix",13.99-5,people["Bethan"]),
-    "crunchyroll": Service("crunchyroll",6.50,people["Brendan"]),
-    "sky sports": Service("sky sports",5.00,people["Celia"]),
-    "spotify": Service("spotify",16.99,people["Tom"])
-}
-        
+# Set up services
+services = {}
+for i,row in service_file.iterrows():
+    services[row["Name"].lower()] = Service(row["Name"],row["Cost"],people[row["Owner"]])
 
-# Add Megan services
-service_and_fractions = {service:1 for service in services.values()}
-register_services(people["Megan"],service_and_fractions)
-
-# Add Brendan services
-service_and_fractions = {
-    services["netflix"]:1,
-    services["sky sports"]:1,
-    services["crunchyroll"]:1
-}
-register_services(people["Brendan"],service_and_fractions)
-
-# Add Bethan Services
-service_and_fractions = {
-    services["netflix"]:1,
-    services["sky sports"]:1,
-    services["spotify"]:1
-}
-register_services(people["Bethan"],service_and_fractions)
-
-# Add Tom services
-service_and_fractions = {
-    services["netflix"]:1,
-    services["sky sports"]:1,
-    services["crunchyroll"]:0.5,
-    services["spotify"]: 1
-}
-register_services(people["Tom"],service_and_fractions)
-
-# Add Celia services
-service_and_fractions = {
-}
-register_services(people["Celia"],service_and_fractions)
-
-# # Add Matt services
-# service_and_fractions = {
-#     services["netflix"]:2
-# }
-# register_services(people["Matt"],service_and_fractions)
+# Set up people
+print(row)
+for i, row in people_file.iterrows():
+    name = row["Name"]
+    service_and_fractions = {service.lower():fraction for service,fraction in row[1:].items()}
+    
 people_overview(people)
