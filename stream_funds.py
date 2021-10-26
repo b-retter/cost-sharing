@@ -88,7 +88,7 @@ people = ["Brendan", "Megan","Bethan","Tom","Celia","Matt"]
 people = {name: Person(name) for name in people}
 
 services = {
-    "netflix": Service("netflix",13.99,people["Bethan"]),
+    "netflix": Service("netflix",13.99-5,people["Bethan"]),
     "crunchyroll": Service("crunchyroll",6.50,people["Brendan"]),
     "sky sports": Service("sky sports",5.00,people["Celia"]),
     "spotify": Service("spotify",16.99,people["Tom"])
@@ -129,9 +129,9 @@ service_and_fractions = {
 }
 register_services(people["Celia"],service_and_fractions)
 
-# Add Matt services
-service_and_fractions = {
-    services["netflix"]:2
-}
-register_services(people["Matt"],service_and_fractions)
+# # Add Matt services
+# service_and_fractions = {
+#     services["netflix"]:2
+# }
+# register_services(people["Matt"],service_and_fractions)
 people_overview(people)
